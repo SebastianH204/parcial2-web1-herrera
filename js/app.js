@@ -103,6 +103,18 @@ formFiltros.addEventListener('submit', (evento) => {
 
 // R6 · UN solo listener en #lista (delegación) que atienda el botón de cada tarjeta
 // y también el botón Reintentar.
-// TODO
+lista.addEventListener('click', (evento) => {
+  if (evento.target.closest('#btn-reintentar')) {
+    cargar();
+    return;
+  }
+
+  const boton = evento.target.closest('[data-id]');
+  if (!boton) return;
+
+  vistos = alternarId(vistos, Number(boton.dataset.id));
+  guardarVistos(vistos);
+  render();
+});
 
 cargar();
