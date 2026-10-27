@@ -17,7 +17,25 @@ const selectTemporada = document.querySelector('#filtro-temporada');
 
 // R3 · Recibe UN episodio y devuelve el HTML de su tarjeta (modelos 1 y 2 de index.html).
 const tarjetaHTML = (episodio) => {
-  // TODO
+  const visto = vistos.includes(episodio.id);
+  const anillo = visto ? 'ring-2 ring-emerald-500' : '';
+  const colorBoton = visto
+    ? 'bg-emerald-600 hover:bg-emerald-700'
+    : 'bg-indigo-600 hover:bg-indigo-700';
+  const textoBoton = visto ? '✓ Visto' : 'Marcar como visto';
+
+  return `
+    <article class="flex flex-col gap-2 rounded-2xl bg-white p-5 shadow ${anillo}">
+      <span class="w-fit rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-semibold text-indigo-700">${episodio.episode}</span>
+      <h3 class="text-lg font-bold">${episodio.name}</h3>
+      <p class="text-sm text-slate-500">Emitido: ${episodio.air_date}</p>
+      <p class="text-sm text-slate-500">${episodio.characters.length} personajes</p>
+      <button type="button" data-id="${episodio.id}"
+              class="mt-auto rounded-lg py-2 font-semibold text-white ${colorBoton}">
+        ${textoBoton}
+      </button>
+    </article>
+  `;
 };
 
 // R2 · Estado de carga y estado de error (modelos 3 y 4 de index.html).
@@ -42,7 +60,7 @@ const mostrarError = (mensaje) => {
 // R3 + R4 + R5 · ESTADO → pantalla: filtra, pinta las tarjetas (o el estado vacío, modelo 5)
 // y actualiza el contador con el formato «7 de 20 episodios · 187 personajes».
 const render = () => {
-  // TODO
+  lista.innerHTML = episodios.map(tarjetaHTML).join('');
 };
 
 // R2 · Pide los episodios: muestra cargando; si todo sale bien guarda y pinta;
