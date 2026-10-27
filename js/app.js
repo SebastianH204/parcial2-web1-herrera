@@ -62,6 +62,8 @@ const mostrarError = (mensaje) => {
 const render = () => {
   const visibles = filtrarEpisodios(episodios, filtros);
 
+  contador.textContent = `${visibles.length} de ${episodios.length} episodios · ${contarPersonajes(visibles)} personajes`;
+
   if (visibles.length === 0) {
     lista.innerHTML = `
       <p class="col-span-full rounded-2xl bg-white p-8 text-center text-slate-500">Ningún episodio coincide con la búsqueda.</p>
